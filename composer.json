@@ -19,7 +19,7 @@
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
         "letyii/yii2-tinymce": "dev-master",
-		"yiisoft/yii2-authclient": "~2.0.0"
+        "yiisoft/yii2-authclient": "~2.0@dev"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

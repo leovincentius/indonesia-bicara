@@ -53,6 +53,26 @@ $config = [
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>'
             ]
+        ],
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'facebook' => [
+                    'class' => 'yii\authclient\clients\Facebook',
+                    'clientId' => '1554153538205725',
+                    'clientSecret' => '5c10ecc71b18b672904e0fbe3f7c5b10',
+                ],
+                'google' => [
+                    'class' => 'yii\authclient\clients\GoogleOAuth',
+                    'clientId' => '698810963131-k55f74b8fqmeldov66t7ktngr9k7c4ih.apps.googleusercontent.com',
+                    'clientSecret' => 'qg2rC_LrMWGV4sUxRU5JvoOH',
+                ],
+                'twitter' => [
+                    'class' => 'yii\authclient\clients\Twitter',
+                    'consumerKey' => 'iOLvx8HWNiM9G62bxkZEUOGGJ',
+                    'consumerSecret' => 'VtdMwAVXKU9EhVtOEBOnuqDtziFLG93Mrxn0oeaXFi6XpiOgyb',
+                ]
+            ]
         ]
     ],
     'params' => $params,
@@ -63,7 +83,8 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = 'yii\debug\Module';
 
-    $config['bootstrap'][] = 'gii';$config['modules']['gii'] = [
+    $config['bootstrap'][] = 'gii';
+    $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
         'generators' => [
             'crud' => [
