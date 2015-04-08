@@ -63,14 +63,22 @@ $config = [
                     'clientSecret' => '5c10ecc71b18b672904e0fbe3f7c5b10',
                 ],
                 'google' => [
-                    'class' => 'yii\authclient\clients\GoogleOAuth',
+                    'class' => 'yii\authclient\clients\GoogleHybrid',
                     'clientId' => '698810963131-k55f74b8fqmeldov66t7ktngr9k7c4ih.apps.googleusercontent.com',
                     'clientSecret' => 'qg2rC_LrMWGV4sUxRU5JvoOH',
+					'viewOptions' => [
+						'widget' => [
+							'class' => 'yii\authclient\widgets\GooglePlusButton',
+							'buttonHtmlOptions' => [
+								'data-approvalprompt' => 'force'
+							],
+						],
+					],
                 ],
                 'twitter' => [
                     'class' => 'yii\authclient\clients\Twitter',
-                    'consumerKey' => 'iOLvx8HWNiM9G62bxkZEUOGGJ',
-                    'consumerSecret' => 'VtdMwAVXKU9EhVtOEBOnuqDtziFLG93Mrxn0oeaXFi6XpiOgyb',
+					'consumerKey' => $params['twitterApiKey'],
+					'consumerSecret' => $params['twitterApiSecret'],
                 ]
             ]
         ]

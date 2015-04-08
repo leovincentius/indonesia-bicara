@@ -977,19 +977,19 @@
         "source": {
             "type": "git",
             "url": "https://github.com/yiisoft/yii2-authclient.git",
-            "reference": "75ca1dff6eb20f8c820df73a61ba842174f161f2"
+            "reference": "9852838304f017407f6d4fb732d6d889cb9e56ae"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/yiisoft/yii2-authclient/zipball/75ca1dff6eb20f8c820df73a61ba842174f161f2",
-            "reference": "75ca1dff6eb20f8c820df73a61ba842174f161f2",
+            "url": "https://api.github.com/repos/yiisoft/yii2-authclient/zipball/9852838304f017407f6d4fb732d6d889cb9e56ae",
+            "reference": "9852838304f017407f6d4fb732d6d889cb9e56ae",
             "shasum": ""
         },
         "require": {
             "ext-curl": "*",
             "yiisoft/yii2": "*"
         },
-        "time": "2015-03-01 06:24:14",
+        "time": "2015-03-29 13:39:21",
         "type": "yii2-extension",
         "extra": {
             "branch-alias": {

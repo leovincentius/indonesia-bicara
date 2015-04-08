@@ -12,4 +12,8 @@ return [
             'menubar' => false,
         ],
     ],
+	'twitterApiKey' => 'iOLvx8HWNiM9G62bxkZEUOGGJ',
+	'twitterApiSecret' => 'VtdMwAVXKU9EhVtOEBOnuqDtziFLG93Mrxn0oeaXFi6XpiOgyb',
+	'twitterAccessToken' => '2397883308-GLmZ0XRRNKGdtKP9sUl9Mgq8RPaLj3xFWsRXkSO',
+	'twitterAccessTokenSecret' => '7sPqlXzAxPhqrN8zaeHSlxTV6wWb3NHZAtpGJkhkPliJr',
 ];
