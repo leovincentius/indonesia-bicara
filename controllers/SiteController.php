@@ -12,6 +12,18 @@ use app\models\EntryForm;
 
 class SiteController extends Controller
 {
+
+    public function __construct($id, $module, $config = []){
+		parent::__construct($id, $module, $config);
+		$this->getView()->theme = Yii::createObject([
+			"class" => "\yii\base\Theme",
+			"pathMap" => [
+				"@app/views" => "@app/themes/indonesiabicara"
+			],
+			"baseUrl" => "@web/themes/indonesiabicara",
+		]);
+	}
+
     public function behaviors()
     {
         return [
@@ -51,7 +63,7 @@ class SiteController extends Controller
             ],
         ];
     }
-	
+
 	public function successCallback($client)
     {
         $attributes = $client->getUserAttributes();
