@@ -10,22 +10,20 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\EntryForm;
 
-class SiteController extends Controller
-{
+class SiteController extends Controller {
 
-    public function __construct($id, $module, $config = []){
-		parent::__construct($id, $module, $config);
-		$this->getView()->theme = Yii::createObject([
-			"class" => "\yii\base\Theme",
-			"pathMap" => [
-				"@app/views" => "@app/themes/indonesiabicara"
-			],
-			"baseUrl" => "@web/themes/indonesiabicara",
-		]);
-	}
+    public function __construct($id, $module, $config = []) {
+        parent::__construct($id, $module, $config);
+        $this->getView()->theme = Yii::createObject([
+                    "class" => "\yii\base\Theme",
+                    "pathMap" => [
+                        "@app/views" => "@app/themes/indonesiabicara"
+                    ],
+                    "baseUrl" => "@web/themes/indonesiabicara",
+        ]);
+    }
 
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -47,8 +45,7 @@ class SiteController extends Controller
         ];
     }
 
-    public function actions()
-    {
+    public function actions() {
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -57,26 +54,23 @@ class SiteController extends Controller
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
-			'auth' => [
+            'auth' => [
                 'class' => 'yii\authclient\AuthAction',
                 'successCallback' => [$this, 'successCallback'],
             ],
         ];
     }
 
-	public function successCallback($client)
-    {
+    public function successCallback($client) {
         $attributes = $client->getUserAttributes();
         // user login or signup comes here
     }
 
-    public function actionIndex()
-    {
+    public function actionIndex() {
         return $this->render('index');
     }
 
-    public function actionLogin()
-    {
+    public function actionLogin() {
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -86,20 +80,18 @@ class SiteController extends Controller
             return $this->goBack();
         } else {
             return $this->render('login', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
 
-    public function actionLogout()
-    {
+    public function actionLogout() {
         Yii::$app->user->logout();
 
         return $this->goHome();
     }
 
-    public function actionContact()
-    {
+    public function actionContact() {
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');
@@ -107,27 +99,34 @@ class SiteController extends Controller
             return $this->refresh();
         } else {
             return $this->render('contact', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
 
-    public function actionAbout()
-    {
+    public function actionAbout() {
         return $this->render('about');
     }
 
-    public function actionSay($message = "Hello"){
+    public function actionSay($message = "Hello") {
         return $this->render("say", ["message" => $message]);
     }
 
-    public function actionEntry(){
+    public function actionEntry() {
         $model = new EntryForm();
 
-        if($model->load(Yii::$app->request->post()) && $model->validate()){
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             return $this->render("entry-confirm", ["model" => $model]);
-        }else{
+        } else {
             return $this->render("entry", ["model" => $model]);
         }
+    }
+
+    public function actionOrganize() {
+        return $this->render('organize');
+    }
+
+    public function actionCoop() {
+        return $this->render('coop');
     }
 }

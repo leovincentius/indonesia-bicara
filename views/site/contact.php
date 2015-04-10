@@ -1,57 +1,52 @@
 <?php
-use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
-use yii\captcha\Captcha;
-
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\models\ContactForm */
-
-$this->title = 'Contact';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-contact">
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <?php if (Yii::$app->session->hasFlash('contactFormSubmitted')): ?>
 
-    <div class="alert alert-success">
-        Thank you for contacting us. We will respond to you as soon as possible.
-    </div>
-
-    <p>
-        Note that if you turn on the Yii debugger, you should be able
-        to view the mail message on the mail panel of the debugger.
-        <?php if (Yii::$app->mailer->useFileTransport): ?>
-        Because the application is in development mode, the email is not sent but saved as
-        a file under <code><?= Yii::getAlias(Yii::$app->mailer->fileTransportPath) ?></code>.
-        Please configure the <code>useFileTransport</code> property of the <code>mail</code>
-        application component to be false to enable email sending.
-        <?php endif; ?>
-    </p>
+        <div class="alert alert-success">
+            Thank you for contacting us. We will respond to you as soon as possible.
+        </div>
 
     <?php else: ?>
 
-    <p>
-        If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.
-    </p>
-
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
-                <?= $form->field($model, 'name') ?>
-                <?= $form->field($model, 'email') ?>
-                <?= $form->field($model, 'subject') ?>
-                <?= $form->field($model, 'body')->textArea(['rows' => 6]) ?>
-                <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
-                    'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
-                ]) ?>
-                <div class="form-group">
-                    <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="jumbotron">
+                    <h2>Pendaftaran Diskusi Online</h2>
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="nama">Nama:</label>
+                            <input type="text" class="form-control" id="nama" placeholder="Masukkan nama" required="required">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" placeholder="Masukkan email" required="required">
+                        </div>
+                        <div class="form-group">
+                            <label for="lineID">Line ID:</label>
+                            <input type="text" class="form-control" id="lineID" placeholder="Masukkan Line ID" required="required">
+                        </div>
+                        <div class="form-group">
+                            <label for="tlp">Nomor Telepon:</label>
+                            <input type="text" class="form-control" id="tlp" placeholder="Masukkan nomor telepon" required="required">
+                        </div>
+                        <button type="submit" class="btn btn-info">Submit</button>
+                    </form>
                 </div>
-            <?php ActiveForm::end(); ?>
+            </div>
+            <div class="col-md-4">
+                <div class="jumbotron">
+                    <h2>Kontak Kami:</h2>
+
+                    Kevin<br>
+                    No Telepon: +6285695095093<br>
+                    Email: kevintanunpar@yahoo.co.id<br>
+                </div>
+            </div>
         </div>
-    </div>
 
     <?php endif; ?>
 </div>
