@@ -8,6 +8,24 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+
+<script>
+    function newField(value){
+        var newField = '<p><input type="text" name="Vote[options][]" value="'+value+'"><a href="javascript:;" onclick="deleteOption(this)"><span class="fa fa-times"></span></a></p>';
+        return newField;
+    }
+
+    function addNewOption(){
+        var newOption = $("#newOption").val();
+        $("#opsi").append(newField(newOption));
+        $("#newOption").val("");
+    }
+
+    function deleteOption(e){
+        $(e).parent().remove();
+    }
+</script>
+
 <div class="col-lg-8 vote-form">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -29,6 +47,13 @@ use yii\widgets\ActiveForm;
 
     <div id="opsi">
         <br>
+        <?php
+        foreach($model->options as $key => $option){
+            ?>
+            <p><input type="text" name="" value="<?=$option->name?>" disabled></p>
+            <?php
+        }
+        ?>
     </div>
 
     <div class="form-group">
@@ -38,20 +63,3 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
-
-<script>
-    function newField(value){
-        var newField = '<p><input type="text" name="Vote[options][]" value="'+value+'"><a href="javascript:;" onclick="deleteOption(this)"><span class="fa fa-times"></span></a></p>';
-        return newField;
-    }
-
-    function addNewOption(){
-        var newOption = $("#newOption").val();
-        $("#opsi").append(newField(newOption));
-        $("#newOption").val("");
-    }
-
-    function deleteOption(e){
-        $(e).parent().remove();
-    }
-</script>

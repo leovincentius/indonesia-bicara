@@ -3,13 +3,14 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use app\models\Admin;
 
 class AdminLoginForm extends Model{
 	public $email;
 	public $password;
 	public $rememberMe=false;
 
-	private $_admin = false;
+	private $_admin=false;
 
 	public function rules(){
 		return [
@@ -41,15 +42,15 @@ class AdminLoginForm extends Model{
 		if(!$this->hasErrors()){
 			$admin = $this->getAdmin();
 
-			if($admin == null || !$admin->validatePassword($this->password)){
+			if($admin === null || !$admin->validatePassword($this->password)){
 				$this->addError($attribute, "Incorect username or password.");
+			}else{
+				//set last_login
+				$admin->last_login = date('Y-m-d H:i:s');
+				//set password empty agar tidak disimpan dalam database
+				$admin->password = "";
+				$admin->save();
 			}
-
-			//set last_login
-			$admin->last_login = date('Y-m-d H:i:s');
-			//set password empty agar tidak disimpan dalam database
-			$admin->password = "";
-			$admin->save();
 		}
 	}
 }
