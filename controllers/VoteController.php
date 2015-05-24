@@ -9,56 +9,29 @@ use app\models\Option;
 use app\models\VoteSearch;
 use app\models\Result;
 
-class VoteController extends Controller {
-
-    public function behaviors() {
-        return \yii\helpers\BaseArrayHelper::merge(parent::behaviors(), [
-                    'verbs' => [
-                        'class' => VerbFilter::className(),
-                        'actions' => [
-                            'delete' => ['post'],
-                        ],
-                    ],
-        ]);
-    }
+class VoteController extends SiteController {
 
     public function actionIndex() {
-        $searchModel = new VoteSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $vote = Vote::find()->orderBy('id DESC')->one();
+        $result = new Result();
 
-        return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
+        return $this->render("index", [
+            'vote' => $vote,
+            'result' => $result,
         ]);
     }
 
-    public function actionView($id) {
-        return $this->render('view', [
-                    'model' => $this->findModel($id),
-        ]);
-    }
+    public function actionAdd() {
+        $result = new Result();
+        $result->load(Yii::$app->request->post());
+        $result->create_date = date('Y-m-d');
 
-    public function actionVote() {
-        $model = new Result();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                        'model' => $model,
-            ]);
+        if($result->save()){
+            Yii::$app->session->setFlash('success', 'Save vote success!');
+        }else{
+            Yii::$app->session->setFlash('error', 'Save vote fail!');
         }
-    }
-
-    public function actionCountVote($id) {
-        $option = Option::findOne($id);
-        $results = $option->getResults();
-        return count($results);
-//        $model = new Option();
-//        $results = $model->getResults();
-//        foreach ($results as $result) {
-//            $ct++;
-//        }
-//        return $ct;
+        $this->redirect(['vote/index']);
     }
 
 }

@@ -31,7 +31,7 @@ class Result extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'option_id'], 'integer'],
+            [['user_id'], 'integer'],
             [['option_id', 'create_date'], 'required'],
             [['create_date'], 'safe']
         ];

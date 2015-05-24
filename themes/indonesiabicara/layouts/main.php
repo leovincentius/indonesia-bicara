@@ -58,6 +58,7 @@ $this->registerJsFile("$theme/bootstrap.min.js");
                         <li><?= Html::a('Diskusi', ['topic/index']) ?></li>
                         <li><?= Html::a('Hasil Diskusi', ['news/index']) ?></li>
                         <li><?= Html::a('Kerjasama Institusi', ['site/coop']) ?></li>
+                        <li><?= Html::a('Vote Topik', ['vote/index']) ?></li>
                         <li><?= Html::a('Contact', ['site/contact']) ?></li>
                     </ul>
                 </div>

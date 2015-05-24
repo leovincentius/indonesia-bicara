@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
         $options .= '<div class="progress">'
                 .'<div class="progress-bar" role="progressbar" style="width: '.($option->getResults()->count()/$totalVote*100).'%;">'
                 .$option->name.' - '.$option->getResults()->count()
-                .'</div></div>';
+                .'</div></div><br>';
     }
     $options .= "";
     ?>

@@ -93,6 +93,16 @@ class VoteController extends BackendController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            //save options
+            $options = Yii::$app->request->post()['Vote']['options'];
+
+            foreach($options as $option){
+                $newOption = new Option();
+                $newOption->vote_id = $model->id;
+                $newOption->name = $option;
+                $newOption->save();
+            }
+            
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
