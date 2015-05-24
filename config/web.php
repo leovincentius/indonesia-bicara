@@ -6,7 +6,7 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'defaultRoute' => 'site/contact',
+    'defaultRoute' => 'site/index',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -59,8 +59,8 @@ $config = [
             'clients' => [
                 'facebook' => [
                     'class' => 'yii\authclient\clients\Facebook',
-                    'clientId' => '1554153538205725',
-                    'clientSecret' => '5c10ecc71b18b672904e0fbe3f7c5b10',
+					'clientId' => $params['facebookApiId'],
+                    'clientSecret' => $params['facebookApiSecret'],
                 ],
                 'google' => [
                     'class' => 'yii\authclient\clients\GoogleHybrid',
