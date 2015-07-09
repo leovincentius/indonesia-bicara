@@ -9,6 +9,8 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\EntryForm;
+use app\models\User;
+use yii\web\Session;
 
 class SiteController extends Controller {
 
@@ -64,6 +66,16 @@ class SiteController extends Controller {
     public function successCallback($client) {
         $attributes = $client->getUserAttributes();
         // user login or signup comes here
+        $user = User::findOne(['email' => $attributes['id']]);
+        if ($user === null) {
+            $user = new User();
+            $user->email = $attributes['id'];
+            $user->name = $attributes['name'];
+            $user->save();
+        }
+        $session = new Session;
+        $session->open();
+        $session['name'] = $attributes['name'];
     }
 
     public function actionIndex() {
@@ -129,4 +141,5 @@ class SiteController extends Controller {
     public function actionCoop() {
         return $this->render('coop');
     }
+
 }

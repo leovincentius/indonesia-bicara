@@ -7,14 +7,8 @@ use yii\authclient\OAuthToken;
 use Yii;
 use yii\web\Controller;
 use app\models\Comment;
+use app\models\Topic;
 use app\models\User;
-
-//    $name = $value['user']['name'];
-//    $photo = $value['user']['profile_image_url'];
-//    $content = $value['text'];
-//    $create_date = $value['created_at'];
-//    echo $name . ' ' . $photo . ' ' . $content . ' ' . $create_date . '<br>';
-//    $id = $value['id_str'];
 
 class TwitterController extends Controller {
 
@@ -36,21 +30,21 @@ class TwitterController extends Controller {
     }
 
     public function actionIndex() {
-        $id = file_get_contents('@web/twitter.txt');
+        $filename = Yii::getAlias('@webroot') . '/twitter.txt';
+        $id = file_get_contents($filename);
         $result = $this->twitter->api('statuses/mentions_timeline.json', 'GET', ['since_id' => $id]);
         foreach ($result as $value) {
             $comment = new Comment();
-            $comment->user_id = User::findOne(['name' => $value['user']['name']]);
+            $comment->user_id = User::findOne(['email' => $value['user']['id']])->id;
+            $comment->topic_id = Topic::find()->select()->orderBy('id DESC')->one()->id;
+            $comment->title = "Tes";
             $comment->content = $value['text'];
-            $comment->create_date = $value['created_at'];
+            $comment->create_date = date('Y-m-d H:i:s', strtotime($value['created_at']));
             $comment->insert();
 //            $photo = $value['user']['profile_image_url'];
-            $id = $value['id_str'];
         }
         if (!empty($result)) {
-            $file = fopen('@web/twitter.txt', 'w');
-            fwrite($file, $id);
-            fclose($file);
+            file_put_contents($filename, $result[0]['id_str']);
         }
     }
 

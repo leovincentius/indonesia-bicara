@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "user".
  *
@@ -18,21 +16,19 @@ use Yii;
  * @property Comment[] $comments
  * @property Result[] $results
  */
-class User extends \yii\db\ActiveRecord
-{
+class User extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'user';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['email', 'name', 'status'], 'required'],
             [['password', 'password_repeat'], 'required', 'on' => 'insert'],
@@ -48,8 +44,7 @@ class User extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'email' => 'Email',
@@ -61,10 +56,10 @@ class User extends \yii\db\ActiveRecord
         ];
     }
 
-    public function beforeSave($insert){
-        if(!empty($this->password)){
+    public function beforeSave($insert) {
+        if (!empty($this->password)) {
             $this->password = md5($this->password);
-        }else{
+        } else {
             unset($this->password);
         }
         return parent::beforeSave($insert);
@@ -73,16 +68,15 @@ class User extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getComments()
-    {
+    public function getComments() {
         return $this->hasMany(Comment::className(), ['user_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getResults()
-    {
+    public function getResults() {
         return $this->hasMany(Result::className(), ['user_id' => 'id']);
     }
+
 }
